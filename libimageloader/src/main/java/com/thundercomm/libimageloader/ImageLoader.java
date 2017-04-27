@@ -18,11 +18,14 @@ public class ImageLoader {
     ExecutorService mExecutorService = Executors.newFixedThreadPool
             (Runtime.getRuntime().availableProcessors());
     private static  ImageLoader _instance = null;
+    private ImageLoader(){}
     public static ImageLoader GetInstance()
     {
-        if(_instance == null)
-        {
-            _instance = new ImageLoader();
+        synchronized (ImageLoader.class){
+            if(_instance == null)
+            {
+                _instance = new ImageLoader();
+            }
         }
         return _instance;
     }
@@ -62,6 +65,9 @@ public class ImageLoader {
             }
         });
     }
+    /**
+     * Download the image from the internet
+     */
     public Bitmap downloadImage(String imageUrl)
     {
         Bitmap bitmap = null;
