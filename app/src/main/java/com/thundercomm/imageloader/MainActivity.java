@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.thundercomm.libimageloader.DoubleCache;
 import com.thundercomm.libimageloader.ImageLoader;
+import com.thundercomm.libimageloader.views.CircleImageView;
+
 
 public class MainActivity extends Activity implements View.OnClickListener{
     private static final String TAG = "Main";
@@ -19,7 +21,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private Button cancel;
     private ProgressBar progressBar;
     private TextView textView;
-
+    private CircleImageView imageView;
+    private ImageView image;
     @Override
     protected void onStart() {
         super.onStart();
@@ -92,6 +95,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         cancel = (Button)findViewById(R.id.cancel);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         textView = (TextView)findViewById(R.id.text_view);
+        imageView = (CircleImageView)findViewById(R.id.circle_img);
+        image = (ImageView)findViewById(R.id.image);
+        ImageLoader.GetInstance().setImageCache(new DoubleCache());
+        ImageLoader.GetInstance().displayImage("http://i.guancha.cn/news/2017/04/04/20170404173137184.jpg",image);
+        ImageLoader.GetInstance().displayImage("http://i.guancha.cn/news/2017/04/04/20170404173137184.jpg",imageView);
+
     }
 
     private class MyTask extends AsyncTask<String,Integer,String>

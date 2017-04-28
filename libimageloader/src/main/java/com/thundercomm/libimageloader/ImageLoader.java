@@ -2,6 +2,7 @@ package com.thundercomm.libimageloader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.net.HttpURLConnection;
@@ -14,6 +15,7 @@ import java.util.concurrent.Executors;
  */
 
 public class ImageLoader {
+    private final static String TAG = "ImageLoader";
     ImageCache mImageCache = new MemeryCache();
     ExecutorService mExecutorService = Executors.newFixedThreadPool
             (Runtime.getRuntime().availableProcessors());
@@ -39,6 +41,7 @@ public class ImageLoader {
         Bitmap bitmap = mImageCache.get(url);
         if(null!=bitmap)
         {
+            Log.d(TAG,"bitmap不为空");
             imageView.setImageBitmap(bitmap);
             return;
         }
@@ -48,6 +51,7 @@ public class ImageLoader {
 
     private void submitLoadRequest(final String imageUrl,final  ImageView imageView)
     {
+        Log.d(TAG,"bitmap为空");
         imageView.setTag(imageUrl);
         mExecutorService.submit(new Runnable() {
             @Override
@@ -70,6 +74,7 @@ public class ImageLoader {
      */
     public Bitmap downloadImage(String imageUrl)
     {
+        Log.d(TAG,"downloadImage");
         Bitmap bitmap = null;
         try{
             URL url = new URL(imageUrl);
